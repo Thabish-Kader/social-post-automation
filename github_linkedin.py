@@ -1,15 +1,18 @@
-#!/usr/bin/python3
-
 import os
 from github import Github
 from dotenv import load_dotenv
 
 load_dotenv()
-password = os.environ.get('GITHUB_PASSWORD')
+acess_token = os.environ.get('ACESS_TOKEN')
 
-# using username and password
-g = Github("Thabish-Kader", password)
+g = Github(acess_token)
+latest_repo = None
+for repo in g.get_user().get_repos():
+    if not latest_repo or repo.updated_at > latest_repo.updated_at:
+        latest_repo = repo
 
-# for repo in g.get_user().get_repos():
-#     print(repo.name)
-#     repo.edit(has_wiki=False)
+if latest_repo:
+    print("Latest repo:", latest_repo.name)
+else:
+    print("No repos found.")
+
