@@ -3,7 +3,7 @@ from github import Github
 from dotenv import load_dotenv
 from linkedin_api import Linkedin
 import tweepy
-import requests
+
 
 load_dotenv()
 acess_token = os.environ.get('ACESS_TOKEN')

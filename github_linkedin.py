@@ -1,9 +1,8 @@
 import os
 from github import Github
 from dotenv import load_dotenv
-from linkedin_api import Linkedin
 import tweepy
-import requests
+import re
 
 load_dotenv()
 github_acess_token = os.environ.get('ACESS_TOKEN')
@@ -22,34 +21,34 @@ for repo in g.get_user().get_repos():
         latest_repo = repo
 contents = latest_repo.get_contents("readme.md")
 readme_content = contents.decoded_content.decode("utf-8")
-print(readme_content)
+formatted_readme = re.cleaned_content = re.sub(r'^#+\s*', '', readme_content, flags=re.MULTILINE)
 
 # # ----- Twitter ------
 
-# client = tweepy.Client(
-#    bearer_token=twitter_bearer_token,
-#    consumer_key=consumer_key,
-#    consumer_secret=consumer_secret,
-#    access_token=twitter_access_token,
-#    access_token_secret=twitter_access_token_secret
-# )
+client = tweepy.Client(
+   bearer_token=twitter_bearer_token,
+   consumer_key=consumer_key,
+   consumer_secret=consumer_secret,
+   access_token=twitter_access_token,
+   access_token_secret=twitter_access_token_secret
+)
 
-# # ----- Post on Twitter ------
+# ----- Post on Twitter ------
 
 
-# if latest_repo :
-#     print("Do you want to post the latest repo on Twitter ?")
-#     answer = input("Y/N : ")
-#     if answer.lower() == "y" :
-#         try :
-#             tweet_text=f"Check out my latest GitHub repository: {latest_repo.repo_name} - {latest_repo.repo_description} {latest_repo.repo_url}"
-#             client.create_tweet(text=tweet_text)
-#             print("Posted on Twitter!")
-#         except PermissionError:
-#             print("Unable to post on Twitter")
-#     else:
-#         print("Not sharing to Twitter")
-# else:
-#     print("No repo found")
+if latest_repo :
+    print("Do you want to post the latest repo on Twitter ?")
+    answer = input("Y/N : ")
+    if answer.lower() == "y" :
+        try :
+            tweet_text=f"Check out my latest GitHub repository: {latest_repo.full_name} - {formatted_readme} {latest_repo.html_url}"
+            client.create_tweet(text=tweet_text)
+            print("Posted on Twitter!")
+        except PermissionError:
+            print("Unable to post on Twitter")
+    else:
+        print("Not sharing to Twitter")
+else:
+    print("No repo found")
 
 
