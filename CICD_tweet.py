@@ -5,7 +5,7 @@ import tweepy
 import re
 
 load_dotenv()
-github_acess_token = os.environ.get('ACESS_TOKEN')
+github_acess_token = os.environ.get('GIT_ACESS_TOKEN')
 consumer_key = os.environ.get('TWITTER_API_KEY')
 consumer_secret = os.environ.get('TWITTER_API_SECRET')
 twitter_access_token = os.environ.get('TWITTER_ACCESS_TOKEN')
@@ -34,7 +34,7 @@ client = tweepy.Client(
 )
 
 # ----- Post on Twitter ------
-tweet_text=f"Check out my latest GitHub repository: {latest_repo.full_name} - {formatted_readme} {latest_repo.html_url}"
+tweet_text=f"Check out my updated GitHub repository: {latest_repo.full_name} - {formatted_readme} {latest_repo.html_url}"
 client.create_tweet(text=tweet_text)
 
 

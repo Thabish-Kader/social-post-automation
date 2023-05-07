@@ -1,18 +1,32 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: Run Python script on push
+
+on:
+    push:
+        branches:
+            - main
+
 jobs:
-    Explore-GitHub-Actions:
+    run-python-script:
         runs-on: ubuntu-latest
+
         steps:
-            - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-            - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-            - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-            - name: Check out repository code
-              uses: actions/checkout@v3
-            - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-            - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-            - name: List files in the repository
-              run: |
-                  ls ${{ github.workspace }}
-            - run: echo "🍏 This job's status is ${{ job.status }}."
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Set up Python
+              uses: actions/setup-python@v2
+              with:
+                  python-version: "3.x"
+
+            - name: Install dependencies
+              run: pip install -r requirements.txt
+
+            - name: Run Python script
+              run: python CICD_tweet.py
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+                  TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+                  TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+                  TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+                  TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
