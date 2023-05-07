@@ -5,7 +5,7 @@ import tweepy
 import re
 
 load_dotenv()
-github_acess_token = os.environ.get('GIT_ACESS_TOKEN')
+github_acess_token = os.environ.get('ACCESS_TOKEN')
 consumer_key = os.environ.get('TWITTER_API_KEY')
 consumer_secret = os.environ.get('TWITTER_API_SECRET')
 twitter_access_token = os.environ.get('TWITTER_ACCESS_TOKEN')
