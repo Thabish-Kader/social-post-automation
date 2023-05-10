@@ -14,12 +14,12 @@ twitter_bearer_token = os.environ.get('TWITTER_BEARER_TOKEN')
 
 # #  ----- Github ------ 
 g = Github(github_acess_token)
-latest_repo = None
+social_post_automation_repo = None
 # Loop over repos and find the latest repo
 for repo in g.get_user().get_repos():
-    if not latest_repo or repo.updated_at > latest_repo.updated_at:
-        latest_repo = repo
-contents = latest_repo.get_contents("readme.md")
+    if repo.name == "social-post-automation":
+        social_post_automation_repo = repo
+contents = social_post_automation_repo.get_contents("readme.md")
 readme_content = contents.decoded_content.decode("utf-8")
 formatted_readme = re.cleaned_content = re.sub(r'^#+\s*', '', readme_content, flags=re.MULTILINE)
 
@@ -34,7 +34,7 @@ client = tweepy.Client(
 )
 
 # ----- Post on Twitter ------
-tweet_text=f"Check out my updated GitHub repository: {latest_repo.full_name} - {formatted_readme} {latest_repo.html_url}"
+tweet_text=f"Check out my updated GitHub repository: {social_post_automation_repo.full_name} - {formatted_readme} {social_post_automation_repo.html_url}"
 client.create_tweet(text=tweet_text)
 
 
