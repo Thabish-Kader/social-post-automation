@@ -15,7 +15,7 @@ twitter_bearer_token = os.environ.get('TWITTER_BEARER_TOKEN')
 # #  ----- Github ------ 
 g = Github(github_acess_token)
 social_post_automation_repo = None
-# Loop over repos and find the latest repo
+# Loop over repos and find the social-post-repo
 for repo in g.get_user().get_repos():
     if repo.name == "social-post-automation":
         social_post_automation_repo = repo
