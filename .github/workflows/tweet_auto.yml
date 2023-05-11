@@ -1,29 +1,35 @@
 name: Run Python script on push
 
 on:
-    push:
-        branches:
+    push: #when to exectue the workflow , optionally it can be pull as well or [push,pull]
+        branches: # branch for the wokflow to run on
             - main
 
 jobs:
-    run-python-script:
-        runs-on: ubuntu-latest
+    run-python-script: #name of the job
+        runs-on: ubuntu-latest # other options - windows-latest, macos-latest
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
-
+        steps: #list of actions to be carried out
+            - name: Checkout code # name of the task , name it whatever you want
+              uses: actions/checkout@v2 # chekout the code from repository with the latest commit
+            # This step sets up the python environment
             - name: Set up Python
               uses: actions/setup-python@v2
-              with:
-                  python-version: "3.x"
+              with: # used to set up the configuration option to the action
+                  python-version: "3.x" # x here is a wild card that uses the latest version of python version 3
+
+            # For node it would look like this
+            # - name: Setup Node.js
+            #   uses: actions/setup-node@v2
+            #   with:
+            #         node-version: '14.x'
 
             - name: Install dependencies
               run: pip install -r requirements.txt
 
             - name: Run Python script
               run: python CICD_tweet.py
-              env:
+              env: # set up env variables in github
                   ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
                   TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
                   TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
