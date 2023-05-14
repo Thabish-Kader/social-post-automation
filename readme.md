@@ -4,4 +4,4 @@
 
 <img align="left" alt="python" width="50px" style="padding-right:10px;" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" />
 
-Project to learn how to automate twitter tweets.
+Project to learn how to automate twitter tweets with
